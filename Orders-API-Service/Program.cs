@@ -14,17 +14,30 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IOrderService, OrderService>();
 
+//builder.Services.AddSingleton((s) =>
+//{
+//    return new CosmosClient(hostContext.Configuration["CosmosEndpoint"], new DefaultAzureCredential());
+//}); // Using managed identities
+
+
+//builder.Services.AddSingleton((s) =>
+//{
+//    return new ServiceBusClient(hostContext.Configuration["ServiceBusEndpoint"], new DefaultAzureCredential());
+
+//}); // Using managed identities
+
 builder.Services.AddSingleton((s) =>
 {
-    return new CosmosClient(builder.Configuration["CosmosEndpoint"], new DefaultAzureCredential());
-}); // Migrate to using Managed Identites
+    return new CosmosClient(builder.Configuration.GetConnectionString("CosmosDBConnectionString"));
+}); // Using connection string for now
+
 
 
 builder.Services.AddSingleton((s) =>
 {
-    return new ServiceBusClient(builder.Configuration["ServiceBusEndpoint"], new DefaultAzureCredential());
-}); // Migrate to using Managed Identites
+    return new ServiceBusClient(builder.Configuration.GetConnectionString("ServiceBusConnectionString"));
 
+}); // Using connection string for now
 
 var app = builder.Build();
 

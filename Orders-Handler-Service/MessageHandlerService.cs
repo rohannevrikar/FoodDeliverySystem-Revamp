@@ -57,7 +57,7 @@ namespace Orders_Handler_Service
 
                 CheckOrders();
 
-                await Task.Delay(5000, stoppingToken); // checks for orders in topics every 5 seconds
+                await Task.Delay(10000, stoppingToken); // checks for orders in topics every 10 seconds
             }
 
             _logger.LogDebug($"GracePeriod background task is stopping.");
@@ -86,6 +86,7 @@ namespace Orders_Handler_Service
                     await _newOrdersReceiver.CompleteMessageAsync(order);
                 }
             }
+            await Task.CompletedTask;
         }
 
         private async Task AcceptedOrderHandler()
@@ -97,6 +98,7 @@ namespace Orders_Handler_Service
                     await _acceptedOrdersReceiver.CompleteMessageAsync(order);
                 }
             }
+            await Task.CompletedTask;
         }
 
         private async Task OutForDeliveryOrderHandler()
@@ -108,6 +110,7 @@ namespace Orders_Handler_Service
                     await _outForDeliveryOrdersReceiver.CompleteMessageAsync(order);
                 }
             }
+            await Task.CompletedTask;
         }
 
         private async Task DeliveredOrderHandler()
@@ -119,6 +122,7 @@ namespace Orders_Handler_Service
                     await _deliveredOrderReceiver.CompleteMessageAsync(order);
                 }
             }
+            await Task.CompletedTask;
         }
 
         private async Task<ItemResponse<dynamic>> UpdateOrderStatus(ServiceBusReceivedMessage order, OrderStatus orderStatus)

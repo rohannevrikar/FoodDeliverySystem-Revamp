@@ -1,0 +1,21 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-handler-service
+  labels:
+    app: order-handler-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: order-handler-service
+  template:
+    metadata:
+      labels:
+        app: order-handler-service
+    spec:
+      containers:
+      - name: order-handler-service
+        image: edafdsacr.azurecr.io/order-handler-service
+        ports:
+        - containerPort: 80

@@ -1,0 +1,15 @@
+﻿apiVersion: v1
+kind: Service
+metadata:
+  name: order-service-api-lb
+ 
+spec:
+  selector:
+    app: order-api-service
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  
+  loadBalancerIP: 20.234.177.32 #static IP azure resource
+  type: LoadBalancer

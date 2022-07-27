@@ -13,3 +13,10 @@ FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /app
 COPY --from=build-env /app/out .
 ENTRYPOINT ["dotnet", "Orders-Handler-Service.dll"]
+
+
+# Commands to build and push
+# docker build -t order-handler-service .
+# docker tag order-handler-service edafdsacr.azurecr.io/order-handler-service
+# az acr login -n edafdsacr
+# docker push edafdsacr.azurecr.io/order-handler-service
